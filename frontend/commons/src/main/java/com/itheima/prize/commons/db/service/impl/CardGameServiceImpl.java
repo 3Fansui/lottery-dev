@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itheima.prize.commons.db.entity.CardGame;
 import com.itheima.prize.commons.db.service.CardGameService;
 import com.itheima.prize.commons.db.mapper.CardGameMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CardGameServiceImpl extends ServiceImpl<CardGameMapper, CardGame>
     implements CardGameService{
+
 
 }
 

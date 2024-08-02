@@ -2,6 +2,7 @@ package com.itheima.prize.commons.db.mapper;
 
 import com.itheima.prize.commons.db.entity.CardGame;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
 
 /**
 * @author shawn
@@ -10,6 +11,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.itheima.prize.commons.db.entity.CardGame
 */
 public interface CardGameMapper extends BaseMapper<CardGame> {
+
+
 
 }
 

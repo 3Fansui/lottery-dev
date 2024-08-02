@@ -5,18 +5,21 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.prize.commons.db.entity.CardGame;
 import com.itheima.prize.commons.db.entity.CardProductDto;
 import com.itheima.prize.commons.db.entity.ViewCardUserHit;
+import com.itheima.prize.commons.db.entity.ViewGameCurinfo;
 import com.itheima.prize.commons.db.mapper.CardGameMapper;
 import com.itheima.prize.commons.db.mapper.GameLoadMapper;
 import com.itheima.prize.commons.db.mapper.ViewCardUserHitMapper;
 import com.itheima.prize.commons.db.service.CardGameService;
 import com.itheima.prize.commons.db.service.GameLoadService;
 import com.itheima.prize.commons.db.service.ViewCardUserHitService;
+import com.itheima.prize.commons.db.service.ViewGameCurinfoService;
 import com.itheima.prize.commons.utils.ApiResult;
 import com.itheima.prize.commons.utils.PageBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/game")
 @Api(tags = {"活动模块"})
+@Slf4j
 public class GameController {
     @Autowired
     private GameLoadService loadService;
@@ -46,7 +50,10 @@ public class GameController {
     })
     public ApiResult list(@PathVariable int status,@PathVariable int curpage,@PathVariable int limit) {
         //TODO
-        return null;
+        log.info("活动列表接口运行：{}",curpage);
+        Page<CardGame> page = gameService.lambdaQuery().eq(status != -1, CardGame::getStatus, status)
+                .page(new Page<>(curpage, limit));
+        return new ApiResult(1,"成功",new PageBean<>(page));
     }
 
     @GetMapping("/info/{gameid}")
@@ -56,7 +63,11 @@ public class GameController {
     })
     public ApiResult<CardGame> info(@PathVariable int gameid) {
         //TODO
-        return null;
+        log.info("根据活动id查看活动详情:{}",gameid);
+
+        CardGame s = gameService.getById(gameid);
+
+        return new ApiResult<>(1,"成功",s);
     }
 
     @GetMapping("/products/{gameid}")
@@ -66,7 +77,9 @@ public class GameController {
     })
     public ApiResult<List<CardProductDto>> products(@PathVariable int gameid) {
         //TODO
-        return null;
+        log.info("奖品信息id:{}",gameid);
+        List<CardProductDto> byGameId = loadService.getByGameId(gameid);
+        return new ApiResult<>(1,"成功",byGameId);
     }
 
     @GetMapping("/hit/{gameid}/{curpage}/{limit}")
@@ -78,7 +91,11 @@ public class GameController {
     })
     public ApiResult<PageBean<ViewCardUserHit>> hit(@PathVariable int gameid,@PathVariable int curpage,@PathVariable int limit) {
         //TODO
-        return null;
+        log.info("中奖id:{}",gameid);
+        Page<ViewCardUserHit> page = hitService.lambdaQuery().eq(ViewCardUserHit::getGameid, gameid)
+                .page(new Page<>(curpage, limit));
+
+        return new ApiResult<>(1,"成功",new PageBean<>(page));
     }
 
 
