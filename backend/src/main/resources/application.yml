@@ -15,16 +15,16 @@ ruoyi:
   # 文件上传类型，本地=local，MinIO=minio（推荐）
   uploadType: minio
 
-#minio的完整url会写入后台的数据库
-#例如：http://192.168.64.100:9005/prize/1701754725603.jpeg
-#所以要保障其可访问性，尤其是docker部署的时候，应该是宿主机暴露的端口！
+# minio的完整url会写入后台的数据库
+# 例如：http://<你的MinIO IP>:9005/prize/1701754725603.jpeg
+# 所以要保障其可访问性，尤其是docker部署的时候，应该是宿主机暴露的端口！
 minio:
-  url: http://192.168.64.100:9005
-  host: 192.168.64.100
+  url: http://<你的MinIO IP>:9005
+  host: <你的MinIO IP>  # MinIO主机IP
   port: 9005
   bucket: prize
-  username: minioadmin
-  password: minioadmin
+  username: <你的MinIO用户名>  # MinIO用户名
+  password: <你的MinIO密码>  # MinIO密码
 
 # 开发环境配置
 server:
