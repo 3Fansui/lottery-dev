@@ -95,6 +95,13 @@ public class GameTask {
             List<CardGameProduct> gameProducts = gameProductService.listByMap(queryMap);
             log.info("load bind product:{}",gameProducts.size());
 
+            /*
+            不用queryMap的写法
+            List<CardGameProduct> gameProducts = gameProductService.lambdaQuery()
+                    .eq(CardGameProduct::getGameid, game.getId())
+                    .list();*/
+
+
             //令牌桶
             List<Long> tokenList = new ArrayList();
             gameProducts.forEach(cgp ->{
@@ -141,4 +148,5 @@ public class GameTask {
 
         });
     }
+
 }

@@ -28,25 +28,6 @@ public class PrizeHitReceiver {
     public void processMessage(String message) {
         logger.info("user hit : message={}", message);
         //TODO
-        try {
-            JSONObject jsonObject = JSON.parseObject(message);
-
-            CardUserHit cardUserHit = new CardUserHit();
-            cardUserHit.setUserid(jsonObject.getInteger("userid"));
-            cardUserHit.setGameid(jsonObject.getInteger("gameid"));
-            cardUserHit.setProductid(jsonObject.getInteger("productid"));
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date hitTime = dateFormat.parse(jsonObject.getString("createtime"));
-            cardUserHit.setHittime(hitTime);
-
-            hitService.save(cardUserHit);
-
-            logger.info("Successfully saved user hit: {}", cardUserHit);
-        } catch (ParseException e) {
-            logger.error("Error parsing date from message: {}", message, e);
-        } catch (Exception e) {
-            logger.error("Error processing message: {}", message, e);
-        }
+        hitService.save(JSON.parseObject(message, CardUserHit.class));
     }
 }
