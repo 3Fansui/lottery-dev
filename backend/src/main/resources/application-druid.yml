@@ -6,9 +6,9 @@ spring:
         druid:
             # 主库数据源
             master:
-                url: jdbc:mysql://192.168.64.100:3306/prize?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                username: root
-                password: root
+                url: jdbc:mysql://<你的数据库IP>:3306/prize?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8  # 数据库连接URL
+                username: <你的数据库用户名>  # 数据库用户名
+                password: <你的数据库密码>  # 数据库密码
             # 从库数据源
             slave:
                 # 从数据源开关/默认关闭
@@ -47,8 +47,8 @@ spring:
                 allow:
                 url-pattern: /druid/*
                 # 控制台管理用户名和密码
-                login-username: user
-                login-password: 123456
+                login-username: user  # 控制台管理用户名
+                login-password: 123456  # 控制台管理密码
             filter:
                 stat:
                     enabled: true
